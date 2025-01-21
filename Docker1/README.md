@@ -14,11 +14,10 @@ Docker network:
 1. let's create first a docker network:
     1. docker network create mongo_network
     2. then for each container we want to use in that network:
-        1. docker run -p 27017:27017 -d --name mongodb mongo as baseline right?
-        2. but with other options (Environment variable to overwrite):
-         1. -e MONGO_INITDB_ROOT_USERNAME=mongoadmin
-         2. -e MONGO_INITDB_ROOT_PASSWORD=password
-        3. and the new created network: --net mongo_network
+        1. docker run -p 27017:27017 -d --name mongodb mongo ----> **but** with other options (Environment variable to overwrite):
+             1. -e MONGO_INITDB_ROOT_USERNAME=mongoadmin
+             2. -e MONGO_INITDB_ROOT_PASSWORD=password
+            3. and the new created network: --net mongo_network
 --------------------------------------------------------
 In this case:
 
