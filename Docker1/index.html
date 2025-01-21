@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile App</title>
+    <style>
+        /* Styles for layout and appearance */
+        .container {
+            margin: 40px auto;
+            width: 80%;
+        }
+        .button {
+            width: 160px;
+            height: 45px;
+            border-radius: 6px;
+            font-size: 15px;
+            margin-top: 20px;
+        }
+        img {
+            width: 328px;
+            height: 287px;
+            display: block;
+            margin-bottom: 20px;
+        }
+        hr {
+            width: 400px;
+            margin-left: 0;
+        }
+        h3 {
+            display: inline-block;
+        }
+        #container, #container-edit {
+            display: none;
+        }
+        #container-edit input {
+            height: 32px;
+            width: 195px;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+ <!-- The JavaScript communicates with the backend server (assumed to be running at http://localhost:3000):
+  
+1) GET /get-profile: Retrieves the current user profile.
+2) POST /update-profile: Updates the user profile with new data.
+
+This is achieved using the fetch API, which handles HTTP requests in modern JavaScript.
+Fetch API  = it provides a simple way to interact with servers and works with promises.
+
+What is a Promise?
+A Promise is like a guarantee in real life. It represents a task that is still happening and might:
+    Succeed (resolve), meaning the task is complete and we get a result.
+    Fail (reject), meaning something went wrong, and we get an error.
+
+Promise: Ordering food.
+async: A way to work with orders (functions) that may take time.
+await: Waiting at the table until your order arrives.
+ 
+ -->
+<body>
+    <!-- Profile View Section -->
+    <div class='container' id='container'>
+        <h1>User Profile</h1>
+        <img src='profile-picture' alt="User Profile Picture">
+        <span>Name: </span><h3 id='name'>Anna Smith</h3>
+        <hr />
+        <span>Email: </span><h3 id='email'>anna.smith@example.com</h3>
+        <hr />
+        <span>Interests: </span><h3 id='interests'>coding</h3>
+        <hr />
+        <button class='button' onclick="updateProfile()">Edit Profile</button>
+    </div>
+
+    <!-- Profile Edit Section -->
+    <div class='container' id='container-edit'>
+        <h1>Edit Profile</h1>
+        <img src='profile-picture' alt="User Profile Picture">
+        <label for='input-name'>Name: </label>
+        <input type="text" id='input-name' value='Anna Smith' />
+        <hr />
+        <label for='input-email'>Email: </label>
+        <input type="email" id='input-email' value='anna.smith@example.com' />
+        <hr />
+        <label for='input-interests'>Interests: </label>
+        <input type="text" id='input-interests' value='coding' />
+        <hr />
+        <button class='button' onclick="handleUpdateProfileRequest()">Update Profile</button>
+    </div>
+
+
+
+    <script>
+        // this is called when the page load
+        // Initialize and Fetch Profile Data from Backend
+        (async function init() { // fetch API.
+            try {
+                // Pause here until the fetch
+                //  Promise resolves
+                const response = await fetch('http://localhost:3000/get-profile');
+                console.log("Response status:", response.status);  // Check if status is 200 or not
+                console.log("Response received:", response); // Log the response object
+                
+                // Pause here until the response is converted to JSON
+                const user = await response.json();
+                // Update the profile view with fetched data
+                document.getElementById('name').textContent = user.name || 'Simone Boesso'; // to display either the name property from the user object or a fallback value 'Anna Smith' if the name is unavailable
+                document.getElementById('email').textContent = user.email || 'boesso.simone@hotmail.com';
+                document.getElementById('interests').textContent = user.interests || 'AI, Machine Learning';
+
+                // Show the profile view section
+                document.getElementById('container').style.display = 'block';
+            } catch (error) {
+                console.error('Error fetching profile:', error);
+            }
+        })();
+
+        // Switch to Edit Mode
+        function updateProfile() {
+            document.getElementById('input-name').value = document.getElementById('name').textContent;
+            document.getElementById('input-email').value = document.getElementById('email').textContent;
+            document.getElementById('input-interests').value = document.getElementById('interests').textContent;
+
+            // Show edit section and hide profile view
+            document.getElementById('container').style.display = 'none';
+            document.getElementById('container-edit').style.display = 'block';
+        }
+
+        // Handle Update Profile Request
+        async function handleUpdateProfileRequest() {
+            const payload = {
+                name: document.getElementById('input-name').value,
+                email: document.getElementById('input-email').value,
+                interests: document.getElementById('input-interests').value
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/update-profile', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                const { message, updatedUser }  = await response.json();
+                console.log(updatedUser)
+                // Update profile view with new data
+                document.getElementById('name').textContent = updatedUser.name;
+                document.getElementById('email').textContent = updatedUser.email;
+                document.getElementById('interests').textContent = updatedUser.interests;
+
+                // Show profile view and hide edit section
+                document.getElementById('container').style.display = 'block';
+                document.getElementById('container-edit').style.display = 'none';
+            } catch (error) {
+                console.error('Error updating profile:', error);
+            }
+        }
+    </script>
+</body>
+</html>
