@@ -26,7 +26,7 @@ In this case:
     2. docker run -p 8081:8081  -d -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin -e ME_CONFIG_MONGODB_ADMINPASSWORD=password --net mongo_network --name mongo_express -e ME_CONFIG_MONGODB_SERVER=mongodb101 -e ME_CONFIG_MONGODB_URL=mongodb://mongoadmin:password@mongodb101:27017/   mongo-express
 
 --------------------------------------------------------
-
+# Docker-compose
 Now whenever I have many services or even two but i need a more organized way to run the containers, i need to use docker-compose;
 
 Basically is a file run by ' docker-compose -f NAMEFILE.yaml up' :
