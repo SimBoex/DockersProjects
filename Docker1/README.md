@@ -79,4 +79,6 @@ where
 to enter the terminal inside the container denoted with ID
 
 2. after entering it: i can use the command "env" to see the environment variables
+3. the command exit to exit the terminal
+4. docker rmi to remove an image after stopping the container!
 
