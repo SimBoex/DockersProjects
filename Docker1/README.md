@@ -55,3 +55,12 @@ Explanations:
 3. RUN is used to run any linux commands (but the effect is only inside the container)
 4. COPY to copy from the local host
 5. CMD to define the commands to run as the entry point after the container is run (first command, in this case is to run the command "node server.js")
+
+# Commands:
+1. docker build -t my-app:1.0 .
+where
+-t to give a tag
+- the path of the Dockerfile
+
+2. docker images
+   to see the new image
