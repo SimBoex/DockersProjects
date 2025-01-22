@@ -52,4 +52,4 @@ Explanations:
 2. to set the environment variables
 3. to run any linux commands (but the effect is only inside the container)
 4. to copy from the local host
-5. to define the commands to run as the entry point (first command, in this case is to run the command "node server.js")
+5. to define the commands to run as the entry point after the container is run (first command, in this case is to run the command "node server.js")
