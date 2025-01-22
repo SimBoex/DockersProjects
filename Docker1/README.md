@@ -34,4 +34,17 @@ To know the name of the network just look at the terminal after the command;
 ## Commands:
 1. To create the containers: 'docker-compose -f NAMEFILE.yaml up'  ("up" to run all the containers)
 2. to stop all the conteiners and remove them(together with the network): 'docker-compose -f NAMEFILE.yaml down'
+--------------------------------------------------------
 
+# Dockerfile
+it is used to create a docker image of an application;
+
+Useful example:
+FROM node
+ENV MONGO_DB_USERNAME=admin MONGO_DB_PWD=password
+
+RUN mkdir -p /home/app
+   
+COPY . /home/app
+
+CMD ["node", "server.js"]
