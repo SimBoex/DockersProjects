@@ -75,7 +75,7 @@ where
 4. others pull from there
 
 # Some useful commands:
-1. docker exec -it ID /bin/bash
+1. docker exec -it ID /bin/bash or docker exec -it ID /bin/sh
 to enter the terminal inside the container denoted with ID
 
 2. after entering it: i can use the command "env" to see the environment variables
