@@ -50,8 +50,8 @@ Useful example:
 
    
 Explanations:
-1. is used to import the layers from another image (in this case one that has Node already installed)
-2. to set the environment variables
-3. to run any linux commands (but the effect is only inside the container)
-4. to copy from the local host
-5. to define the commands to run as the entry point after the container is run (first command, in this case is to run the command "node server.js")
+1. FROM is used to import the layers from another image (in this case one that has Node already installed)
+2. ENV is used to set the environment variables
+3. RUN is used to run any linux commands (but the effect is only inside the container)
+4. COPY to copy from the local host
+5. CMD to define the commands to run as the entry point after the container is run (first command, in this case is to run the command "node server.js")
