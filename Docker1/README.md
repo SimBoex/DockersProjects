@@ -72,5 +72,5 @@ where
 1. commit on Git: app and the Docker file
 2. Jenkins generate the docker image after intepreting the javascript
 3. Jenkins push into the docker repository
-4. other pull from there
+4. others pull from there
 
