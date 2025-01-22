@@ -35,5 +35,5 @@ Basically is a file run by 'docker-compose -f NAMEFILE.yaml up' :
 Differently from before there is no need to set up the network container since docker compose take care automatically of it (connecting the containeirs);
 To know the name of the network just look at the terminal after the command;
 
-to stop all the conteiners: 'docker-compose -f NAMEFILE.yaml down'
+to stop all the conteiners and remove them(together with the network): 'docker-compose -f NAMEFILE.yaml down'
 
