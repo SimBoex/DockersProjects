@@ -45,6 +45,8 @@ Useful example:
 3. RUN mkdir -p /home/app
 4. COPY . /home/app
 5. CMD ["node", "server.js"]
+
+   
 Explanations:
 1. is used to import the layers from another image (in this case one that has Node already installed)
 2. to set the environment variables
