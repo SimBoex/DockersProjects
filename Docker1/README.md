@@ -40,11 +40,14 @@ To know the name of the network just look at the terminal after the command;
 it is used to create a docker image of an application;
 
 Useful example:
-FROM node
-ENV MONGO_DB_USERNAME=admin MONGO_DB_PWD=password
+1. FROM node
+2. ENV MONGO_DB_USERNAME=admin MONGO_DB_PWD=password
+3. RUN mkdir -p /home/app
+4. COPY . /home/app
+5. CMD ["node", "server.js"]
 
-RUN mkdir -p /home/app
-   
-COPY . /home/app
-
-CMD ["node", "server.js"]
+1. is used to import the layers from another image (in this case one that has Node already installed)
+2. to set the environment variables
+3. to run any linux commands (but the effect is only inside the container)
+4. to copy from the local host
+5. to define the commands to run as the entry point (first command, in this case is to run the command "node server.js")
