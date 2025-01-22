@@ -74,3 +74,9 @@ where
 3. Jenkins push into the docker repository
 4. others pull from there
 
+# Some useful commands:
+1. docker exec -it ID /bin/bash
+to enter the terminal inside the container denoted with ID
+
+2. after entering it: i can use the command "env" to see the environment variables
+
