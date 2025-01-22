@@ -29,11 +29,11 @@ In this case:
 # Docker-compose
 Now whenever I have many services or even two but i need a more organized way to run the containers, i need to use docker-compose;
 
-Basically is a file run by ' docker-compose -f NAMEFILE.yaml up' :
+Basically is a file run by 'docker-compose -f NAMEFILE.yaml up' :
 1. "up" to run all the containers
 
 Differently from before there is no need to set up the network container since docker compose take care automatically of it (connecting the containeirs);
 To know the name of the network just look at the terminal after the command;
 
-
+to stop all the conteiners: 'docker-compose -f NAMEFILE.yaml down'
 
