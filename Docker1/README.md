@@ -150,3 +150,5 @@ Docker for MAC creates a linux virtual machine and stores all the Docker data th
 So i need to enter its terminal and then run the command!
 
 Basically in volumes i find both the anonymous and the named volumes!
+### What is Kubernetes?
+basically whenever i need to deploy a lot of containers across multiple server in a distributted way i need to manage the Container Orchestration, and kubenetes does it
