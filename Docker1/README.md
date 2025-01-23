@@ -82,3 +82,71 @@ to enter the terminal inside the container denoted with ID
 3. the command exit to exit the terminal
 4. docker rmi to remove an image after stopping the container!
 
+-------------------------------------------------------------
+
+# Docker Volumes
+## General idea:
+a container has a VIRTUAL FILE SYSTEM where the data are stored;
+-> whenever i stop a container the data is gone! 
+-> and if i restart i have a fresh start!
+
+## Solution:
+To solve this problem whenever we need a persistent state we need to use Docker volumes!
+
+How?
+1. Folder in the physical host file system is mounted into the virtual file system of Docker
+	1. basically whenever the container writes to its virtual file system, the data gets replicated on the physical file system (this means MOUNTING A VOLUME)
+
+2. when a container is restarted, it is populted with the data from the mounted folder;
+
+## 3 volumes types:
+1. docker run -v HostDir:ContainerDir (this type of definition is called Host Volumes)
+2. docker run -v ContainerDir (these are called Anonymous Volumes) ->  These volumes are commonly used in scenarios where 
+the data needs to be persistent throughout restarts of the same container, but it does not need to be shared across other ones or persist once the container is destroyed.
+3. docker run -v name:ConteinerDir (called Named Volumes) -> an improvment of the Anonymous containers referencing the volume by name without knowing the exact path (these are the most used)
+
+
+## How to use in a docker-compose file?
+
+version: '3'
+services:
+  # my-app:
+  # image: ${docker-registry}/my-app:1.0
+  # ports:
+  # - 3000:3000
+  mongodb:
+    image: mongo
+    ports:
+      - 27017:27017
+
+    volumes: 
+      -mongo-data:ContainerDir ## this is the path used by the mongo container to access the volume 
+		(this is sth already defined in a image -> mongo-db has the virtual file system in /data/db)
+   		(this is the mapping, it maps the volume created called mongo-data to the virtual file system located in containerDir  )
+  mongo-express:
+    image: mongo-express
+    restart: always # fixes MongoNetworkError when mongodb is not ready when mongo-express starts
+    ports:
+      - 8080:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=admin
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=password
+      - ME_CONFIG_MONGODB_SERVER=mongodb
+volumes: # here all the volumes we want to define  in order to make them accessible to all the containers!  
+  mongo-data:
+    driver: local # it says to create the volume in the local system
+
+
+ 
+## Where the docker volumes are stored?
+it depends on the operating system!
+1. Windows: C:\ProgramData\Docker\volumes
+2. Linux: /var/lib/docker/volumes
+3. MAC: /var/lib/docker/volumes
+
+### Remark:
+on Mac, you can't find it just running ls /var/lib/docker/volumes
+Docker for MAC creates a linux virtual machine and stores all the Docker data there!
+So i need to enter its terminal and then run the command!
+
+Basically in volumes i find both the anonymous and the named volumes!
